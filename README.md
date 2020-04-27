@@ -1,2 +1,2 @@
 ## JetBrains Academy / Python 
-<p align="center">Coffee Machine project</p>
+<p>Coffee Machine project</p>
