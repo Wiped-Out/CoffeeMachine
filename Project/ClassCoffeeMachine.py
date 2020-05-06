@@ -83,7 +83,7 @@ class CoffeeMachine:
             if key != 'Money':
                 print(f'{value} of {key.lower()}')
             else:
-                return f'${value} of {key.lower()}'
+                print(f'${value} of {key.lower()}')
 
 
 machine = CoffeeMachine()
