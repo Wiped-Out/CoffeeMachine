@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 class CoffeeMachine:
-    has = {'Water': 400, 'Milk': 540, 'Beans': 120, 'Cups': 1, 'Money': 550}
+    has = {
+        'Water': 400,
+        'Milk': 540,
+        'Beans': 120,
+        'Cups': 9,
+        'Money': 550,
+    }
 
     coffee_recipes = {
         1: {'Name': 'Espresso', 'Price': 4,
@@ -8,7 +14,7 @@ class CoffeeMachine:
         2: {'Name': 'Latte', 'Price': 7,
             'Resources': {'Water': 350, 'Milk': 75, 'Beans': 20, 'Cups': 1}},
         3: {'Name': 'Capuccino', 'Price': 6,
-            'Resources': {'Water': 200, 'Milk': 100, 'Beans': 12, 'Cups': 1}}
+            'Resources': {'Water': 200, 'Milk': 100, 'Beans': 12, 'Cups': 1}},
     }
 
     def __init__(self):
@@ -30,8 +36,7 @@ class CoffeeMachine:
                 self.remaining()
                 self.states = 'Choosing an action'
             elif inp == 'exit':
-                print('Bye!')
-                exit()
+                raise SystemExit('Bye!')
         elif self.states == 'Choosing a type of coffee':
             self.buy(inp)
 
@@ -50,7 +55,8 @@ class CoffeeMachine:
                 for key, value in self.coffee_recipes[usr_choice]['Resources'].items():
                     self.has[key] -= value
                 self.has['Money'] += self.coffee_recipes[usr_choice]['Price']
-                print('I have enough resources, making you a coffee!')
+                self.states = 'Choosing an action'
+                print('I have enough resources, making you a coffee!\n')
         except (ValueError, KeyError):
             print('Invalid option')
             self.states = 'Choosing a type of coffee'
@@ -58,7 +64,7 @@ class CoffeeMachine:
 
     def fill(self):
         try:
-            print('Write how many ml of water do you want to add:')
+            print('\nWrite how many ml of water do you want to add:')
             self.has['Water'] += int(input('> '))
             print('Write how many ml of milk do you want to add:')
             self.has['Milk'] += int(input('> '))
@@ -75,21 +81,22 @@ class CoffeeMachine:
     def take(self):
         old_value = self.has['Money']
         self.has['Money'] -= self.has['Money']
-        print(f'I gave you ${old_value}')
+        print(f'\nI gave you ${old_value}')
 
     def remaining(self):
-        print('The coffee machine has:')
+        print('\nThe coffee machine has:')
         for key, value in self.has.items():
             if key != 'Money':
                 print(f'{value} of {key.lower()}')
             else:
-                print(f'${value} of {key.lower()}')
+                print(f'${value} of {key.lower()}\n')
 
 
 machine = CoffeeMachine()
 
 while True:
     if machine.states == "Choosing an action":
-        machine.state(input("Write action (buy, fill, take, remaining, exit: "))
+        machine.state(input("Write action (buy, fill, take, remaining, exit):\n"))
     elif machine.states == "Choosing a type of coffee":
-        machine.state(input('What do you want to buy? 1 - Espresso, 2 - Latte, 3 - Cappucino - back - to menu'))
+        print()
+        machine.state(input('What do you want to buy? 1 - Espresso, 2 - Latte, 3 - Cappucino - back - to menu\n'))

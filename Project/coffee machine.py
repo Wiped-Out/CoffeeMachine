@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 has = {'Water': 400, 'Milk': 540, 'Beans': 120, 'Cups': 9, 'Money': 550}
 
 coffee_recipes = {
